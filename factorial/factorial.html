@@ -12,6 +12,18 @@
     <div id="output"></div>
 </div>
 <script>
+    function addListener(listener) {
+        document.getElementById("button").addEventListener("click", listener);
+    }
+
+    function getInput() {
+        return document.getElementById('input').value;
+    }
+
+    function setOutput(result) {
+        document.getElementById('output').innerText = result;
+    }
+
     fetch('factorial.wasm').then(response =>
         response.arrayBuffer()
     ).then(bytes =>
@@ -29,18 +41,6 @@
             });
         }
     );
-
-    function addListener(listener) {
-        document.getElementById("button").addEventListener("click", listener);
-    }
-
-    function getInput() {
-        return document.getElementById('input').value;
-    }
-
-    function setOutput(result) {
-        document.getElementById('output').innerText = result;
-    }
 </script>
 </body>
 
