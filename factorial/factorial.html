@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>WASM test</title>
+</head>
+
+<body>
+<div>
+    <input id="input" type="number">
+    <button id="button">Compute factorial</button>
+    <div id="output"></div>
+</div>
+<script>
+    fetch('factorial.wasm').then(response =>
+        response.arrayBuffer()
+    ).then(bytes =>
+        WebAssembly.instantiate(bytes, {})
+    ).then(result => {
+            const exports = result.instance.exports;
+            console.log(exports);
+
+            const factorial = exports.factorial; // exported C function
+
+            addListener(() => {
+                const input = getInput();
+                const result = factorial(input);
+                setOutput(result);
+            });
+        }
+    );
+
+    function addListener(listener) {
+        document.getElementById("button").addEventListener("click", listener);
+    }
+
+    function getInput() {
+        return document.getElementById('input').value;
+    }
+
+    function setOutput(result) {
+        document.getElementById('output').innerText = result;
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+emcc LeapYear.c -s WASM=1 -o LeapYear.html -s NO_EXIT_RUNTIME=0
